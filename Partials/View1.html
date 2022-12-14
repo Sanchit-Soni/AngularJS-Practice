@@ -1,0 +1,63 @@
+<div class="container">
+  <center><h1>Welcome to View 1</h1></center>
+  <div class="subContainer">
+    <br />
+    Search: {{filter.name}}
+    <br />
+    <input placeholder="Search for a user" type="text" ng-model="filter.name" />
+    <br />
+    <br />
+    <h2>Add a new Customer</h2>
+    Customer Name: <br />
+    <input placeholder="Enter a name" type="text" ng-model="newCustomer.name" />
+    <br />
+    Customer City: <br />
+    <input placeholder="Enter City" type="text" ng-model="newCustomer.city" />
+    <br />
+    <button ng-click="addCustomer()">Add Customer</button>
+    <br />
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>City</th>
+      </tr>
+      <tr ng-repeat="cust in customers | filter:filter.name | orderBy:'city'">
+        <td>{{cust.name}}</td>
+        <td>{{cust.city}}</td>
+      </tr>
+    </table>
+    <!-- <ul>
+      <li ng-repeat="cust in customers | filter:filter.name | orderBy:'city'">
+        Name: {{cust.name | uppercase}} :: City: {{cust.city}}
+      </li>
+    </ul> -->
+    <br />
+    <a href="#!/view2">Route to view 2</a>
+    <h2>Filter a Post</h2>
+    <input
+      placeholder="Search for a post Title"
+      type="text"
+      ng-model="filter.user"
+    />
+    <div class="row">
+      <div
+        class="data-box"
+        ng-repeat="user in userData | filter:filter.user | limitTo: 100"
+      >
+        <p>{{user.id}}</p>
+        <h1>{{user.title}}</h1>
+        <p>{{user.body}}</p>
+        <center>
+          <button class="btn-describe link">
+            <a class="link" href="#!/view1/{{user.id}}"
+              >Click here for more details</a
+            >
+          </button>
+          <button ng-click="deletePost(user.id)" class="btn-delete link">
+            Delete Post
+          </button>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

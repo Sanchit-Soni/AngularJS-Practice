@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width,
+			initial-scale=1.0"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="topnav">
+        <a href="#!/view2">View2</a>
+        <a class="" href="#!/view1">Home</a>
+      </div>
+    </nav>
+    <div>
+      <div ng-view></div>
+
+      <!-- <script src="Scripts/angular.min.js"></script> -->
+      <script>
+        const demoApp = angular.module("demoApp", ["ngRoute"]);
+        demoApp.config(function ($routeProvider) {
+          $routeProvider
+            .when("/view1", {
+              controller: "simpleController",
+              templateUrl: "Partials/View1.html",
+            })
+            .when("/view1/:id", {
+              controller: "view3Controller",
+              templateUrl: "Partials/View3.html",
+            })
+            .when("/view2", {
+              //controller: "simpleController",
+              templateUrl: "Partials/View2.html",
+            })
+            .otherwise({ redirectTo: "/view1" });
+        });
+
+        demoApp.factory("simpleFactory", function () {
+          var customers = [
+            { name: "John Smith", city: "Pune" },
+            { name: "John Doe", city: "Bangalore" },
+            { name: "Miller S", city: "Mumbai" },
+          ];
+          var factory = {};
+          factory.getCustomers = function () {
+            return customers;
+          };
+          factory.postCustomer = function () {};
+          return factory;
+        });
+        demoApp.controller(
+          "simpleController",
+          function ($scope, $http, simpleFactory) {
+            $scope.customers = [];
+            $scope.userData;
+            $http
+              .get("https://jsonplaceholder.typicode.com/posts")
+              .then(function (res) {
+                $scope.userData = res.data;
+                //console.log("hello");
+                console.log(res);
+              });
+
+            //console.log(userData);
+            init();
+            function init() {
+              $scope.customers = simpleFactory.getCustomers();
+            }
+            $scope.addCustomer = function () {
+              $scope.customers.push({
+                name: $scope.newCustomer.name,
+                city: $scope.newCustomer.city,
+              });
+            };
+            $scope.deletePost = function (id) {
+              $http
+                .delete("https://jsonplaceholder.typicode.com/posts/" + id)
+                .then(function (res) {
+                  alert("Status " + res.status);
+                  console.log(res);
+                });
+            };
+          }
+        );
+        demoApp.controller(
+          "view3Controller",
+          function ($scope, $http, $routeParams, simpleFactory) {
+            console.log("your id", $routeParams.id);
+            $http
+              .get(
+                "https://jsonplaceholder.typicode.com/posts/" + $routeParams.id
+              )
+              .then(function (res) {
+                console.log(res.data);
+                $scope.individualData = res.data;
+              });
+          }
+        );
+      </script>
+    </div>
+  </body>
+</html>

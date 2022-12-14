@@ -1,0 +1,19 @@
+{
+  "weather": [
+    {
+      "day": "Sunday",
+      "desc": "Sunny all day",
+      "temp": 82
+    },
+    {
+      "day": "Monday",
+      "desc": "Sunny all day",
+      "temp": 65
+    },
+    {
+      "day": "Tuesday",
+      "desc": "Sunny all day",
+      "temp": 86
+    }
+  ]
+}

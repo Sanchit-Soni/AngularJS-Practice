@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width,
+			initial-scale=1.0">
+<style>
+body {
+background-color: lightgreen;
+}
+
+@media only screen and (max-width: 600px) {
+body {
+	background-color: lightblue;
+}
+}
+</style>
+<div ng-app>
+<div ng-controller="ClickToEditCtrl">
+	<div ng-hide="editorEnabled">
+	{{title}}
+	<a href="#"
+		ng-click="editorEnabled=!editorEnabled">
+			Edit title</a>
+	</div>
+	<div ng-show="editorEnabled">
+	<input ng-model="title">
+	<a href="#"
+		ng-click="editorEnabled=!editorEnabled">
+					Done editing?</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

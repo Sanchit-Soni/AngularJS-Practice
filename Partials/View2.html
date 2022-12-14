@@ -1,14 +1,15 @@
 <div class="container">
-  <center><h2>View 2 Hola</h2></center>
+  <center><h2>View 2</h2></center>
+  <center><h3>List View</h3></center>
   <div class="subContainer" ng-controller="simpleController">
-    <br />
     City: {{city}}
+    <br />
     <br />
     <input placeholder="Enter a City" type="text" ng-model="city" />
     <br />
     <ul>
       <li ng-repeat="cust in customers | filter:city | orderBy:'city'">
-        Name: {{cust.name | uppercase}} :: City: {{cust.city}}
+        Name: {{cust.name }} , City: {{cust.city}}
       </li>
     </ul>
   </div>

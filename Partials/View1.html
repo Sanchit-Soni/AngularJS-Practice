@@ -9,10 +9,20 @@
     <br />
     <h2>Add a new Customer</h2>
     Customer Name: <br />
-    <input placeholder="Enter a name" type="text" ng-model="newCustomer.name" />
+    <input
+      placeholder="Enter a name"
+      type="text"
+      ng-model="newCustomer.name"
+      ng-required="true"
+    />
     <br />
     Customer City: <br />
-    <input placeholder="Enter City" type="text" ng-model="newCustomer.city" />
+    <input
+      placeholder="Enter City"
+      type="text"
+      ng-model="newCustomer.city"
+      ng-required="true"
+    />
     <br />
     <button ng-click="addCustomer()">Add Customer</button>
     <br />

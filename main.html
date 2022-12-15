@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport"
-	content="width=device-width,
-			initial-scale=1.0">
-<style>
-body {
-background-color: lightgreen;
-}
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
-@media only screen and (max-width: 600px) {
-body {
-	background-color: lightblue;
-}
-}
-</style>
-<div ng-app>
-<div ng-controller="ClickToEditCtrl">
-	<div ng-hide="editorEnabled">
-	{{title}}
-	<a href="#"
-		ng-click="editorEnabled=!editorEnabled">
-			Edit title</a>
-	</div>
-	<div ng-show="editorEnabled">
-	<input ng-model="title">
-	<a href="#"
-		ng-click="editorEnabled=!editorEnabled">
-					Done editing?</a>
-	</div>
-</div>
-</div>
-</body>
+  <body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!london">City 1</a>
+    <a href="#!paris">City 2</a>
+
+    <p>Click on the links.</p>
+
+    <p>
+      Note that each "view" has its own controller which each gives the "msg"
+      variable a value.
+    </p>
+
+    <div ng-view></div>
+
+    <script>
+      var app = angular.module("myApp", ["ngRoute"]);
+      app.config(function ($routeProvider) {
+        $routeProvider
+          .when("/", {
+            templateUrl: "main.html",
+          })
+          .when("/london", {
+            templateUrl: "london.htm",
+            controller: "londonCtrl",
+          })
+          .when("/paris", {
+            templateUrl: "paris.htm",
+            controller: "parisCtrl",
+          })
+          .otherwise({ redirectTo: "/" });
+      });
+      app.controller("londonCtrl", function ($scope) {
+        $scope.msg = "I love London";
+      });
+      app.controller("parisCtrl", function ($scope) {
+        $scope.msg = "I love Paris";
+      });
+    </script>
+  </body>
 </html>
+<!-- <!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+  <body ng-app="myApp">
+    <p><a href="#/!">Main</a></p>
+
+    <a href="#!banana">Banana</a>
+    <a href="#!tomato">Tomato</a>
+
+    <p>Click on the links to change the content.</p>
+
+    <p>
+      Use the "otherwise" method to define what to display when none of the
+      links are clicked.
+    </p>
+
+    <div ng-view></div>
+
+    <script>
+      var app = angular.module("myApp", ["ngRoute"]);
+      app.config(function ($routeProvider) {
+        $routeProvider
+          .when("/banana", {
+            template: "<h1>Banana</h1><p>Bananas contain around 75% water.</p>",
+          })
+          .when("/tomato", {
+            template:
+              "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>",
+          })
+          .otherwise({
+            template: "<h1>Nothing</h1><p>Nothing has been selected</p>",
+          });
+      });
+    </script>
+  </body>
+</html> -->

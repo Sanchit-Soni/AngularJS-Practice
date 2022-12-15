@@ -16,6 +16,7 @@
   <body>
     <nav>
       <div class="topnav">
+        <a href="#!/CustomDirective">Custom Directive</a>
         <a href="#!/view2">View2</a>
         <a class="" href="#!/view1">Home</a>
       </div>
@@ -40,6 +41,10 @@
               //controller: "simpleController",
               templateUrl: "Partials/View2.html",
             })
+            .when("/CustomDirective", {
+              controller: "simpleController",
+              templateUrl: "Partials/CustomDirective.html",
+            })
             .otherwise({ redirectTo: "/view1" });
         });
 
@@ -48,9 +53,14 @@
             { name: "John Smith", city: "Pune" },
             { name: "John Doe", city: "Bangalore" },
             { name: "Miller S", city: "Mumbai" },
+            { name: "Smith", city: "Pune" },
+            { name: "Doe", city: "Bangalore" },
+            { name: "Haha Miller S", city: "Mumbai" },
           ];
           var factory = {};
           factory.getCustomers = function () {
+            console.log(customers);
+
             return customers;
           };
           factory.postCustomer = function () {};
@@ -104,6 +114,25 @@
               });
           }
         );
+
+        demoApp.directive("randomPost", [
+          function () {
+            return {
+              restrict: "E",
+              scope: {
+                userData: "=",
+                customers: "=",
+                title: "=",
+              },
+              templateUrl: "Partials/random.html",
+              transclude: true,
+              replace: true,
+              controller: function ($scope) {
+                $scope.random = Math.floor(Math.random() * 6);
+              },
+            };
+          },
+        ]);
       </script>
     </div>
     <br />
